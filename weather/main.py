@@ -6,10 +6,18 @@ from views import home
 
 app = fastapi.FastAPI()
 
-app.mount('/static', StaticFiles(directory='weather/static'), name='static')
-app.include_router(home.router)
-app.include_router(weather.router)
+def configure():
+    configure_routing()
 
 
+def configure_routing():
+    app.mount('/static', StaticFiles(directory='weather/static'), name='static')
+    app.include_router(home.router)
+    app.include_router(weather.router)
 
-uvicorn.run(app)
+
+if __name__ == '__main__':
+    configure()
+    uvicorn.run(app, port=8000, host='127.0.0.1')
+else:
+    configure()
