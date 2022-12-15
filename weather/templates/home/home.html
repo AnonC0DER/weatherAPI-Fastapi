@@ -42,10 +42,30 @@
                     >the link above</a> to see example output.
                     </li>
                 </ul>
+
+                <strong>Documentation</strong>
+                <ul>
+                    <li>Click <a href="/docs/"
+                                 target="_blank"
+                    >the link above</a> to see example documentation.
+                    </li>
+                </ul>
             </div>
         </li>
     </ul>
     </p>
+
+    {% if events %}
+    <div>
+        <h2>Recent weather events</h2>
+        <ul>
+            {% for event in events %}
+                <li>{{ event.location.city }}, {{ event.location.country }} : {{ event.description }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+
     </div>
 
 {% endblock %}

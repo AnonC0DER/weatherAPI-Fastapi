@@ -8,7 +8,7 @@ from services.openweather_service import get_report
 router = fastapi.APIRouter()
 
 @router.get('/api/weather/')
-async def weather(loc: Location = Depends(), units: Optional[str] = 'metric'):
+async def weather(loc: Location = Depends(), units: Optional[str] = 'metric') -> dict:
     try:
         return await get_report(loc.city, loc.state, loc.country, units)
     except ValidationError as e:
