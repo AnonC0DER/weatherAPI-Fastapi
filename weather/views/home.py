@@ -6,10 +6,10 @@ router = fastapi.APIRouter()
 templates = Jinja2Templates('weather/templates')
 
 @router.get('/')
-def home(request: Request):
+async def home(request: Request):
     return templates.TemplateResponse('home/home.html', {'request' : request})
 
 
 @router.get('/favicon.ico')
-def favicon():
+async def favicon():
     return fastapi.responses.RedirectResponse(url='/static/img/favicon.ico')
