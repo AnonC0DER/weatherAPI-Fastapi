@@ -57,7 +57,7 @@
 
     {% if events %}
     <div>
-        <h2>Recent weather events</h2>
+        <h2>Recent weather events - {{ count }} Event(s)</h2>
         <ul>
             {% for event in events %}
                 <li>{{ event.location.city }}, {{ event.location.country }} : {{ event.description }}</li>
