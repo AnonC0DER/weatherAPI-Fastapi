@@ -3,7 +3,7 @@ FROM python:3.11.1-slim-buster
 ENV PYTHONUNBUFFERED=1
 
 WORKDIR /fastapi
-COPY ./ ./
+COPY . .
 
 RUN pip install -r requirements.txt
 
