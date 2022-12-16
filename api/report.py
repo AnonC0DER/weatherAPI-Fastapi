@@ -5,11 +5,13 @@ from models.report import Report
  
 router = fastapi.APIRouter()
 
-@router.get('/api/reports', name='all_reports', response_model=List[Report])
+@router.get('/api/reports', name='all_reports')
 async def reports_get() -> List[Report]:
-    return await get_reports()
+    reports = get_reports()
+    
+    return fastapi.responses.JSONResponse(reports)
 
 
 @router.post('/api/reports', name='add_report', status_code=201, response_model=Report)
 async def reports_post(report: Report) -> Report:
-    return await add_report(report.description, report.location)
+    return add_report(report.description, report.location)

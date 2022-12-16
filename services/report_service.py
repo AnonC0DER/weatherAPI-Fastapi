@@ -2,18 +2,31 @@ import datetime
 from typing import List
 from models.location import Location
 from models.report import Report
+from database.db import ReportDB
 
-__reports: List[Report] = [] # Keeping everything simple, will be replaced with real database
+__db = ReportDB()
 
-async def get_reports() -> List[Report]:
-    return list(__reports)
+def get_reports() -> List[Report]:
+    def report_helper(report):
+        return {
+            '_id' : str(report['_id']),
+            'description' : report['description'],
+            'location' : report['location'],
+            'created' : report['created'].strftime('%I:%M:%S%p %d%b%Y'),
+        }
+
+    reports = __db.get_reports()
+    reports = [report_helper(report) for report in reports]
+
+    reports_count = __db.counter()
+    data = {'count' : reports_count, 'reports' : reports}
+    
+    return data
 
 
-async def add_report(description: str, location: Location) -> Report:
+def add_report(description: str, location: Location) -> Report:
     report = Report(location=location, description=description, created=datetime.datetime.now())
 
-    # Will be Replaced with saving to database
-    __reports.append(report)
-    __reports.sort(key=lambda report: report.created, reverse=True)
-
+    __db.add_report(report)
+    
     return report
