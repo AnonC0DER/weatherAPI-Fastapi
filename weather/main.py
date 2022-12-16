@@ -12,7 +12,7 @@ def configure():
 
 
 def configure_routing():
-    app.mount('/static', StaticFiles(directory='weather/static'), name='static')
+    app.mount('/static', StaticFiles(directory='static'), name='static')
     app.include_router(home.router)
     app.include_router(weather.router)
     app.include_router(report.router)

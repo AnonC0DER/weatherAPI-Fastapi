@@ -4,7 +4,7 @@ from starlette.requests import Request
 from services import report_service
 
 router = fastapi.APIRouter()
-templates = Jinja2Templates('weather/templates')
+templates = Jinja2Templates('templates')
 
 @router.get('/', include_in_schema=False)
 async def home(request: Request):
