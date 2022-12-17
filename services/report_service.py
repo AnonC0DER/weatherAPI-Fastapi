@@ -6,7 +6,7 @@ from database.db import ReportDB
 
 __db = ReportDB()
 
-def get_reports() -> List[Report]:
+def get_reports(limit=None) -> List[Report]:
     def report_helper(report):
         return {
             '_id' : str(report['_id']),
@@ -15,7 +15,11 @@ def get_reports() -> List[Report]:
             'created' : report['created'].strftime('%I:%M:%S%p %d%b%Y'),
         }
 
-    reports = __db.get_reports()
+    if limit:
+        reports = __db.get_reports(limit)
+    else:
+        reports = __db.get_reports()
+
     reports = [report_helper(report) for report in reports]
 
     reports_count = __db.counter()

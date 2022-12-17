@@ -8,7 +8,7 @@ templates = Jinja2Templates('templates')
 
 @router.get('/', include_in_schema=False)
 async def home(request: Request):
-    reports = get_reports()
+    reports = get_reports(limit=10)
     events = reports['reports']
     count = reports['count']
 
