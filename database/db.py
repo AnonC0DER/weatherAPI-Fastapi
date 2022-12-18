@@ -32,12 +32,12 @@ class ReportDB:
         
         return f'Result : {result.inserted_id}'
 
-    def get_reports(self, limit: int = None) -> List[Report]:
+    def get_reports(self, limit: int = None, skip: int = 0) -> List[Report]:
         '''Return a list of reports'''
         if limit:
-            results = list(self.collection.find({}).limit(limit))
+            results = list(self.collection.find({}).skip(skip).limit(limit))
         else:
-            results = list(self.collection.find({}))
+            results = list(self.collection.find({}).skip(skip))
 
         return results
     

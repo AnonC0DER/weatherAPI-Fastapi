@@ -6,8 +6,8 @@ from models.report import Report
 router = fastapi.APIRouter()
 
 @router.get('/api/reports', name='all_reports')
-async def reports_get() -> List[Report]:
-    reports = get_reports()
+async def reports_get(limit: int = 10, skip: int = 0) -> List[Report]:
+    reports = get_reports(limit, skip)
     
     return fastapi.responses.JSONResponse(reports)
 

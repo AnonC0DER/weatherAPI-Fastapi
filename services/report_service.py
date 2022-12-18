@@ -6,7 +6,7 @@ from database.db import ReportDB
 
 __db = ReportDB()
 
-def get_reports(limit=None) -> List[Report]:
+def get_reports(limit: int = None, skip: int = 0) -> List[Report]:
     def report_helper(report):
         return {
             '_id' : str(report['_id']),
@@ -16,9 +16,9 @@ def get_reports(limit=None) -> List[Report]:
         }
 
     if limit:
-        reports = __db.get_reports(limit)
+        reports = __db.get_reports(limit, skip)
     else:
-        reports = __db.get_reports()
+        reports = __db.get_reports(skip=skip)
 
     reports = [report_helper(report) for report in reports]
 
