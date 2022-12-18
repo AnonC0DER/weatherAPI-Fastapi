@@ -42,6 +42,5 @@ class ReportDB:
         return results
     
     def counter(self) -> int:
-        result = self.collection.count_documents({})
-
+        result = self.collection.estimated_document_count({})
         return result
