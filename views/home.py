@@ -18,3 +18,8 @@ async def home(request: Request):
 @router.get('/favicon.ico', include_in_schema=False)
 async def favicon():
     return fastapi.responses.RedirectResponse(url='/static/img/favicon.ico')
+
+
+@router.get("/sentry-debug")
+async def trigger_error():
+    division_by_zero = 1 / 0

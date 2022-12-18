@@ -5,6 +5,13 @@ from api import weather
 from api import report
 from views import home
 
+import sentry_sdk
+
+sentry_sdk.init(
+    dsn='https://1ac0e678f7eb4f9ba14ee889615eee7c@sentry.hamravesh.com/536',
+    traces_sample_rate=1.0,
+)
+
 app = fastapi.FastAPI()
 
 def configure():
