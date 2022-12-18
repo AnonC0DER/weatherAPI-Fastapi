@@ -35,9 +35,9 @@ class ReportDB:
     def get_reports(self, limit: int = None, skip: int = 0) -> List[Report]:
         '''Return a list of reports'''
         if limit:
-            results = list(self.collection.find({}).skip(skip).limit(limit))
+            results = list(self.collection.find({}).skip(skip).limit(limit).sort('_id', -1))
         else:
-            results = list(self.collection.find({}).skip(skip))
+            results = list(self.collection.find({}).skip(skip).sort('_id', -1))
 
         return results
     
