@@ -1,5 +1,5 @@
-import pymongo
 import os
+import pymongo
 from typing import List
 from models.report import Report
 
@@ -42,5 +42,28 @@ class ReportDB:
         return results
     
     def counter(self) -> int:
+        '''Count documents'''
         result = self.collection.estimated_document_count({})
         return result
+    
+    def search(self, query: str, find_one=True):
+        '''
+            find_one: 
+                - True : return only one result
+                - False : return a list of found results
+        '''
+        if find_one:
+            result = self.collection.find_one({'description' : query})
+        else:
+            result = self.collection.find({'description' : query}).limit(20)
+        
+        return result
+    
+    def _create_text_index(self):
+        '''Create text index for faster and better search results'''
+        indexes = pymongo.IndexModel(
+            [
+                ('description', pymongo.TEXT), ('location.city', pymongo.TEXT), ('location.state', pymongo.TEXT), ('location.country', pymongo.TEXT)
+            ]
+        )
+        self.collection.create_indexes([indexes])
