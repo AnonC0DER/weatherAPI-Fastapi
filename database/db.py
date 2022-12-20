@@ -53,9 +53,9 @@ class ReportDB:
                 - False : return a list of found results
         '''
         if find_one:
-            result = self.collection.find_one({'description' : query})
+            result = self.collection.find_one({'$text': { '$search': query }})
         else:
-            result = self.collection.find({'description' : query}).limit(20)
+            result = self.collection.find({'$text': { '$search': query }}).limit(20)
         
         return result
     
