@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: weather-api-svc
+spec:
+  selector:
+    app: weather-api
+  ports:
+  - port: 6000
+    targetPort: 80
+  type: LoadBalancer
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: weather-api
+spec:
+  selector:
+    matchLabels:
+      app: weather-api
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: weather-api
+    spec:
+      containers:
+      - name: weather-api
+        image: hesamnorin/weather_api
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
