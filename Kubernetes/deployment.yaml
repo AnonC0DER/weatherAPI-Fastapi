@@ -4,7 +4,7 @@ metadata:
   name: weather-api
 
 spec:
-  replicas: 5
+  replicas: 3
   selector:
     matchLabels:
       app: weather-api
@@ -20,3 +20,22 @@ spec:
           ports:
           - containerPort: 80
             protocol: TCP
+          env:
+            - name: HOST_DB
+              value: "10.109.79.143"
+            - name: PORT_DB
+              value: "27017"
+            - name: USER_DB
+              value: "root"
+            - name: PASSWORD_DB
+              valueFrom:
+                secretKeyRef:
+                  name: db-credentials
+                  key: password
+
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 5
+            periodSeconds: 30
