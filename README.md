@@ -17,3 +17,5 @@ if you want to use Docker there are two simple steps
 - `uvicorn main:app --host 0.0.0.0 --port 80`
 
 After running project you can check documentation on 0.0.0.0/docs .
+
+sfsf
